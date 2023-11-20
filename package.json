@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "A google book search engine using MERN stack development.",
   "main": "server/server.js",
+  "engines": {
+    "node": "20.x",
+    "npm": "10.x"
+  },
+
   "scripts": {
     "start": "node server/server.js",
     "server": "cd server && nodemon server.js --ignore client",
