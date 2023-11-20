@@ -4,7 +4,7 @@ require("dotenv").config();
 // intialiaze variables
 const express = require("express");
 const path = require("path");
-const { ApolloSever } = require("@apollo/server");
+const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
 
 const { typeDefs, resolvers } = require("./schemas");
