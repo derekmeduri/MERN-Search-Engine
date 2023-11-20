@@ -1,13 +1,17 @@
 const jwt = require("jsonwebtoken");
-const {GraphQLError } = require{'graphql'};
+const { GraphQLError } = require("graphql");
 
 // set token secret and expiration date
 const secret = process.env.SECRET;
 const expiration = "2h";
 
 module.exports = {
-  // function for our authenticated routes
-  authMiddleware: async ({req}) => {
+  AuthenicationError: new GraphQLError("Could not authenitcate user.", {
+    extensions: {
+      code: "UNATHENTICATED",
+    },
+  }),
+  authMiddleware: async ({ req }) => {
     // allows token to be sent via  req.body or req.query or headers
     let token = req.body.toke || req.query.token || req.headers.authorization;
 
@@ -24,11 +28,11 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
-    } catch(err) {
-      console.error('Invalid token')
+    } catch (err) {
+      console.error("Invalid token");
     }
-    // return request object 
-    console.log('Returned context: ', req);
+    // return request object
+    console.log("Returned context: ", req);
     return req;
   },
   signToken: function ({ username, email, _id }) {
