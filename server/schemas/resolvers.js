@@ -1,10 +1,6 @@
 const { User } = require("../models");
 const { Book } = require("../models");
-const {
-  signToken,
-  AuthenticationError,
-  AuthenicationError,
-} = require("../utils/auth");
+const { signToken, AuthenticationError } = require("../utils/auth");
 const { GraphQLError } = require("graphql");
 
 const resolvers = {
@@ -40,7 +36,7 @@ const resolvers = {
       if (!user) {
         throw AuthenticationError;
       }
-      const coreectPw = await user.isCorrectPassowrd(password);
+      const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
         throw new GraphQLError("Incorrect Login Credentials");
       }
@@ -65,7 +61,7 @@ const resolvers = {
   },
   // only logged in users can remove boook from their profile
   removeBook: async (_, { bookId }, context) => {
-    if (!context.user) throw AuthenicationError;
+    if (!context.user) throw AuthenticationError;
     return await User.findByIdAndUpdate(
       context.user._id,
       { $pull: { savedBooks: { bookId } } },
