@@ -43,30 +43,30 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-  },
 
-  addUser: async (_, { username, email, password }) => {
-    const user = await User.create({ username, email, password });
-    const token = signToken(user);
-    return { token, user };
-  },
+    addUser: async (_, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      const token = signToken(user);
+      return { token, user };
+    },
 
-  saveBook: async (_, { input }, context) => {
-    if (!context.user) throw AuthenticationError;
-    return await User.findByIdAndUpdate(
-      context.user._id,
-      { $addToSet: { savedBooks: input } },
-      { new: true, runValidators: true }
-    );
-  },
-  // only logged in users can remove boook from their profile
-  removeBook: async (_, { bookId }, context) => {
-    if (!context.user) throw AuthenticationError;
-    return await User.findByIdAndUpdate(
-      context.user._id,
-      { $pull: { savedBooks: { bookId } } },
-      { new: true }
-    );
+    saveBook: async (_, { input }, context) => {
+      if (!context.user) throw AuthenticationError;
+      return await User.findByIdAndUpdate(
+        context.user._id,
+        { $addToSet: { savedBooks: input } },
+        { new: true, runValidators: true }
+      );
+    },
+    // only logged in users can remove boook from their profile
+    removeBook: async (_, { bookId }, context) => {
+      if (!context.user) throw AuthenticationError;
+      return await User.findByIdAndUpdate(
+        context.user._id,
+        { $pull: { savedBooks: { bookId } } },
+        { new: true }
+      );
+    },
   },
 };
 
