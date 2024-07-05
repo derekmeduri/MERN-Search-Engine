@@ -3,7 +3,7 @@ const { GraphQLError } = require("graphql");
 
 // set token secret and expiration date
 const secret = process.env.SECRET;
-const expiration = process.env.EXPIRATION;
+const expiration = "2h";
 
 module.exports = {
   AuthenicationError: new GraphQLError("Could not authenticate user.", {
