@@ -1,7 +1,6 @@
-// env variables
 require("dotenv").config();
 
-// intialiaze variables
+// Initialize variables
 const express = require("express");
 const path = require("path");
 const { ApolloServer } = require("@apollo/server");
@@ -19,7 +18,7 @@ const server = new ApolloServer({
 });
 
 const app = express();
-// create new instance of applo server with GraphQL schema
+// Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async () => {
   await server.start();
 
@@ -49,4 +48,5 @@ const startApolloServer = async () => {
   });
 };
 
+// Call the async function to start the server
 startApolloServer();
