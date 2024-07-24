@@ -1,3 +1,4 @@
+// see SignupForm.js for comments
 import { useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
@@ -5,13 +6,11 @@ import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
 import { LOGIN_USER } from '../utils/mutations';
 
-
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
   const [validated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
-
+  
   const [loginUser] = useMutation(LOGIN_USER);
 
   const handleInputChange = (event) => {
@@ -30,7 +29,7 @@ const LoginForm = () => {
     }
 
     try {
-      const { data } = await loginUser({ variables: {...userFormData}});
+      const { data } = await loginUser({ variables: { ...userFormData } });
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
@@ -52,11 +51,12 @@ const LoginForm = () => {
         <Form.Group className='mb-3'>
           <Form.Label htmlFor='email'>Email</Form.Label>
           <Form.Control
-            type='text'
+            type='email'
             placeholder='Your email'
             name='email'
             onChange={handleInputChange}
             value={userFormData.email}
+            autoComplete="username"
             required
           />
           <Form.Control.Feedback type='invalid'>Email is required!</Form.Control.Feedback>
@@ -70,6 +70,7 @@ const LoginForm = () => {
             name='password'
             onChange={handleInputChange}
             value={userFormData.password}
+            autoComplete='current-password'
             required
           />
           <Form.Control.Feedback type='invalid'>Password is required!</Form.Control.Feedback>

@@ -1,11 +1,14 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import ReactDOM from 'react-dom/client';
+// Import the required Provider component and createBrowserRouter helper function
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './App.jsx'
-import SearchBooks from './pages/SearchBooks'
-import SavedBooks from './pages/SavedBooks'
+// Import the pages the application should be able to display
+import App from './App.jsx';
+import SearchBooks from './pages/SearchBooks';
+import SavedBooks from './pages/SavedBooks';
 
+// Define the router object which will control the Provider's ability to display certain pages to match the proper URLs
 const router = createBrowserRouter([
   {
     path: '/',
@@ -14,15 +17,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <SearchBooks />
-      }, {
+        element: <SearchBooks />,
+      },
+      {
         path: '/saved',
-        element: <SavedBooks />
-      }
-    ]
-  }
-])
+        element: <SavedBooks />,
+      },
+    ],
+  },
+]);
 
+// Render the Provider which will keep track of the application's location
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
-)
+);
